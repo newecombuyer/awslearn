@@ -11,16 +11,21 @@ app.use(cors());
 app.use(express.json());
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect("mongodb+srv://mmurugavel343:murugaveldev@cluster0.5d2r0r8.mongodb.net/aws");
+
+
+// Get the default connection
 const db = mongoose.connection;
 
+// Listen for a successful connection event
 db.on("connected", () => {
-    console.log("mongo db connected successfully")
-})
-db.on("error", (err) => {
-    console.log("mongo db not connected", err)
-})
+    console.log("MongoDB connected successfully");
+});
 
+// Listen for connection errors
+db.on("error", (err) => {
+    console.log("MongoDB not connected", err);
+});
 
 
 app.get('/', (req, res) => {
