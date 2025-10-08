@@ -11,7 +11,8 @@ app.use(cors());
 app.use(express.json());
 
 // Connect to MongoDB
-mongoose.connect("mongodb+srv://mmurugavel343:murugaveldev@cluster0.5d2r0r8.mongodb.net/aws");
+// mongoose.connect("mongodb+srv://mmurugavel343:murugaveldev@cluster0.5d2r0r8.mongodb.net/aws");
+mongoose.connect("mongodb://mmurugavel343:murugaveldev@ac-9wfbquv-shard-00-00.5d2r0r8.mongodb.net:27017,ac-9wfbquv-shard-00-01.5d2r0r8.mongodb.net:27017,ac-9wfbquv-shard-00-02.5d2r0r8.mongodb.net:27017/aws?replicaSet=atlas-10xjkt-shard-0&ssl=true&authSource=admin");
 
 
 // Get the default connection
