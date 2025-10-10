@@ -3,6 +3,9 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const User = require("./model/userSchema");
 require('dotenv').config()
+const multer = require("multer");
+const path = require("path");
+
 
 const app = express();
 
@@ -32,15 +35,34 @@ db.on("error", (err) => {
     console.log("MongoDB not connected", err);
 });
 
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Multer storage config
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "uploads/"); // folder inside your project
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + "-" + file.originalname);
+    },
+});
+
+const upload = multer({ storage: storage });
+
+
 
 app.get('/', (req, res) => {
     res.json({ status: 200, message: "server is runing..." })
 })
 
 // CREATE
-app.post("/users", async (req, res) => {
+app.post("/users", upload.single("image"), async (req, res) => {
     try {
-        const user = await User.create(req.body);
+        const { name, email } = req.body;
+        console.log(name)
+        const image = req.file ? req.file.filename : null;
+
+        const user = await User.create({ name, email, image });
         res.json(user);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -51,11 +73,19 @@ app.post("/users", async (req, res) => {
 app.get("/users", async (req, res) => {
     try {
         const users = await User.find();
-        res.json(users);
+
+        // Convert image filename to full URL
+        const usersWithImageURL = users.map(u => ({
+            ...u._doc,
+            image: u.image ? `http://18.60.226.132:5000/uploads/${u.image}` : null
+        }));
+
+        res.json(usersWithImageURL);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 });
+
 
 // UPDATE
 app.put("/users/:id", async (req, res) => {
