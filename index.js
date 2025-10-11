@@ -15,8 +15,11 @@ app.use(express.json());
 
 // Connect to MongoDB
 mongoose.connect(
-    "mongodb://ec2-18-60-226-132.ap-south-2.compute.amazonaws.com:27017/aws",
+    "mongodb://ec2-16-112-64-116.ap-south-2.compute.amazonaws.com:27017/aws",
 );
+// mongoose.connect(
+//     "mongodb://ec2-18-60-226-132.ap-south-2.compute.amazonaws.com:27017/aws",
+// );
 // mongoose.connect(
 //     "mongodb+srv://mmurugavel343:murugaveldev@cluster0.5d2r0r8.mongodb.net/aws"
 // );
