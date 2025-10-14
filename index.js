@@ -15,7 +15,7 @@ app.use(express.json());
 
 // Connect to MongoDB
 mongoose.connect(
-    "mongodb://ec2-16-112-64-116.ap-south-2.compute.amazonaws.com:27017/aws",
+    "mongodb://ec2-18-61-229-29.ap-south-2.compute.amazonaws.com:27017/aws",
 );
 // mongoose.connect(
 //     "mongodb://ec2-18-60-226-132.ap-south-2.compute.amazonaws.com:27017/aws",
